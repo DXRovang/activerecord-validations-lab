@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
   validates :title, presence: true
   validates :content, length: { minimum: 250 }
   validates :summary, length: { maximum: 250 }
-  validates :category, inclusion: { in: %w("Fiction" "Non-Fiction")}
+  validates :category, inclusion: { in: %w(Fiction Non-Fiction)}
   validate :custom
 
   CLICKBAIT = [
@@ -14,7 +14,6 @@ class Post < ActiveRecord::Base
 
   def custom
     if !CLICKBAIT.any? {|click| click.match(self.title)}
-      binding.pry
       errors.add(:title, "Nope")
     end
   end
